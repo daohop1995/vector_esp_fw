@@ -98,3 +98,4 @@ struct baudio_codec_api {
 
 extern const struct baudio_codec_api BAUDIO_API_DECLARE(tlv320aic3120);
 void tlv320_clock_cfg(struct baudio_inst *inst);
+void tlv320_speaker_config(struct baudio_inst *inst);

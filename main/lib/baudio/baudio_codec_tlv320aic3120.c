@@ -483,60 +483,62 @@ void tlv320_clock_cfg(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x00, 0x00);
     // Reset
     tlv320_write_byte(inst, 0x01, 0x01);
-    // // clock_gen_muxing : PLL_CLK_IN - MCLK, CODEC_CLKIN - PLL_CLK
-    // tlv320_write_byte_check(inst, 0x04, 0x03);
-    // // PLL P and R Values : PLL_POWER_ON/OFF - ON, P - 1, R - 1
-    // tlv320_write_byte_check(inst, 0x05, 0x11);
-    // // PLL J-Value : J - 7, 
-    // tlv320_write_byte_check(inst, 0x06, 0x07);
-    // // PLL D_MSB : D - 0
-    // tlv320_write_byte_check(inst, 0x07, 0x00);
-    // tlv320_write_byte_check(inst, 0x08, 0x00);
-    // // DAC NDAC_VAL : NDAC - 7, DAC_CLK - 12.288MHz
-    // tlv320_write_byte_check(inst, 0x0B, 0x87);
-    // // DAC MDAC_VAL : DAC MDAC ON/OFF - ON, MDAC - 6
-    // tlv320_write_byte_check(inst, 0x0C, 0x86);
-    // // DAC DOSR_VAL MSB : DOSR - 128
-    // tlv320_write_byte_check(inst, 0x0D, 0x00);
-    // // DAC DOSR_VAL LSB :
-    // tlv320_write_byte_check(inst, 0x0E, 0x80);
-    // // ADC NADC_VAL : ADC NDAC ON/OFF - ON, NADC - 7
-    // tlv320_write_byte_check(inst, 0x12, 0x87);
-    // // ADC MADC_VAL : ADC MDAC ON/OFF - ON, MADC - 6
-    // tlv320_write_byte_check(inst, 0x13, 0x86);
-    // // ADC AOSR_VAL : AOSR - 128
-    // tlv320_write_byte_check(inst, 0x14, 0x80);
-    // // Set ADC_CLK as CLK input for CDIV
-    // tlv320_write_byte_check(inst, 0x19, 0x06);
-    // // Set M factor for CDIVE
-    // tlv320_write_byte_check(inst, 0x1A, 0x81);
-    // // Enable PLL
-    // tlv320_write_byte_check(inst, 0x05, 0x91);
-    // // ----------------------------------------------------------------------------
-    // // I2S configurations : Copy from the excel
-    // // ----------------------------------------------------------------------------
-    // // Codec Interface Ctrl : WCLK_IN/OUT - OUT, BCLK_IN/OUT - OUT, Mode - DSP, Word length - 16
-    // tlv320_write_byte_check(inst, 0x1B, 0x4C);
-    // // Data-slot offeset prog. : offset - 1
-    // tlv320_write_byte_check(inst, 0x1C, 0x01);
-    // // Codec interface ctrl 2 : BCLK_SRC - ADC_MOD_CLK, DIN_DOUT_LOOPBACK - DISABLE, ADC_DAC_LOOPBACK - DISABLE, BCLK & WCLK active when PD - DISABLE
-    // tlv320_write_byte_check(inst, 0x1D, 0x03);
-    // // BCLK N divider value : BCLK_N_DIV_ON/OFF - ON, BCLK_DIV - 4
-    // tlv320_write_byte_check(inst, 0x1E, 0x83);
-    // //  tlv320_write_byte_check(inst, 0x1E 0x04 );
-    // // codec sec interface ctrl 1 : Sec BCLK - frm GPIO1, Sec WCLK - from GPIO1, Sec Din - from GPIO1
-    // tlv320_write_byte_check(inst, 0x1F, 0x00);
-    // // codec sec interface ctrl 2 : ADC_WCLK - from GPIO1, prim BCLK - fed to ck_gen and codec int., prim WCLK - fe o codec int., ADC_WCLK - same as DAC_WCLK, prim Din - fed to codec int.
-    // tlv320_write_byte_check(inst, 0x20, 0x00);
-    // // codec sec interface ctrl 3 : prim BCLK out - in. BCLK, sec BCLK out - prim BCLK, prim WCLK out - ADC_f, swc WCLK ot  prim WCLK, prim DOUT - dout, sec DOUT - prim DIN
-    // tlv320_write_byte_check(inst, 0x21, 0x10);
-    // // ----------------------------------------------------------------------------
-    // // Processing block configurations : Copy from the excel
-    // // ----------------------------------------------------------------------------
-    // // DAC Processing Block / miniDSP Selection : PRB_P4
-    // tlv320_write_byte_check(inst, 0x3C, 0x04);
-    // // ADC Processing Block / miniDSP Selection : PRB_R4
-    // tlv320_write_byte_check(inst, 0x3D, 0x04);
+    // clock_gen_muxing : PLL_CLK_IN - MCLK, CODEC_CLKIN - PLL_CLK
+    tlv320_write_byte_check(inst, 0x04, 0x03);
+    // PLL P and R Values : PLL_POWER_ON/OFF - ON, P - 1, R - 1
+    tlv320_write_byte_check(inst, 0x05, 0x11);
+    // Enable PLL
+    tlv320_write_byte_check(inst, 0x05, 0x91);
+    // PLL J-Value : J - 7, 
+    tlv320_write_byte_check(inst, 0x06, 0x07);
+    // PLL D_MSB : D - 0
+    tlv320_write_byte_check(inst, 0x07, 0x00);
+    tlv320_write_byte_check(inst, 0x08, 0x00);
+    // DAC NDAC_VAL : NDAC - 7, DAC_CLK - 12.288MHz
+    tlv320_write_byte_check(inst, 0x0B, 0x87);
+    // DAC MDAC_VAL : DAC MDAC ON/OFF - ON, MDAC - 6
+    tlv320_write_byte_check(inst, 0x0C, 0x86);
+    // DAC DOSR_VAL MSB : DOSR - 128
+    tlv320_write_byte_check(inst, 0x0D, 0x00);
+    // DAC DOSR_VAL LSB :
+    tlv320_write_byte_check(inst, 0x0E, 0x80);
+    // ADC NADC_VAL : ADC NDAC ON/OFF - ON, NADC - 7
+    tlv320_write_byte_check(inst, 0x12, 0x87);
+    // ADC MADC_VAL : ADC MDAC ON/OFF - ON, MADC - 6
+    tlv320_write_byte_check(inst, 0x13, 0x86);
+    // ADC AOSR_VAL : AOSR - 128
+    tlv320_write_byte_check(inst, 0x14, 0x80);
+    // Set ADC_CLK as CLK input for CDIV
+    tlv320_write_byte_check(inst, 0x19, 0x07);
+    // Set M factor for CDIVE
+    tlv320_write_byte_check(inst, 0x1A, 0x80);
+    // Set GPIO1 = CLKOUT1
+    tlv320_write_byte_check(inst, 0x33, 0x12);
+    // ----------------------------------------------------------------------------
+    // I2S configurations : Copy from the excel
+    // ----------------------------------------------------------------------------
+    // Codec Interface Ctrl : WCLK_IN/OUT - OUT, BCLK_IN/OUT - OUT, Mode - DSP, Word length - 16
+    tlv320_write_byte_check(inst, 0x1B, 0x4C);
+    // Data-slot offeset prog. : offset - 1
+    tlv320_write_byte_check(inst, 0x1C, 0x01);
+    // Codec interface ctrl 2 : BCLK_SRC - ADC_MOD_CLK, DIN_DOUT_LOOPBACK - DISABLE, ADC_DAC_LOOPBACK - DISABLE, BCLK & WCLK active when PD - DISABLE
+    tlv320_write_byte_check(inst, 0x1D, 0x03);
+    // BCLK N divider value : BCLK_N_DIV_ON/OFF - ON, BCLK_DIV - 4
+    tlv320_write_byte_check(inst, 0x1E, 0x83);
+    //  tlv320_write_byte_check(inst, 0x1E 0x04 );
+    // codec sec interface ctrl 1 : Sec BCLK - frm GPIO1, Sec WCLK - from GPIO1, Sec Din - from GPIO1
+    tlv320_write_byte_check(inst, 0x1F, 0x00);
+    // codec sec interface ctrl 2 : ADC_WCLK - from GPIO1, prim BCLK - fed to ck_gen and codec int., prim WCLK - fe o codec int., ADC_WCLK - same as DAC_WCLK, prim Din - fed to codec int.
+    tlv320_write_byte_check(inst, 0x20, 0x00);
+    // codec sec interface ctrl 3 : prim BCLK out - in. BCLK, sec BCLK out - prim BCLK, prim WCLK out - ADC_f, swc WCLK ot  prim WCLK, prim DOUT - dout, sec DOUT - prim DIN
+    tlv320_write_byte_check(inst, 0x21, 0x10);
+    // ----------------------------------------------------------------------------
+    // Processing block configurations : Copy from the excel
+    // ----------------------------------------------------------------------------
+    // DAC Processing Block / miniDSP Selection : PRB_P4
+    tlv320_write_byte_check(inst, 0x3C, 0x04);
+    // ADC Processing Block / miniDSP Selection : PRB_R4
+    tlv320_write_byte_check(inst, 0x3D, 0x04);
 }
 
 void tlv320_speaker_config(struct baudio_inst *inst)

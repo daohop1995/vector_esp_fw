@@ -84,7 +84,8 @@
         "main.h": "c",
         "cstddef": "cpp",
         "baudio_codec.h": "c",
-        "bhaptic.h": "c"
+        "bhaptic.h": "c",
+        "io_mux_reg.h": "c"
     },
     "idf.flashType": "UART",
     "idf.portWin": "COM10",
