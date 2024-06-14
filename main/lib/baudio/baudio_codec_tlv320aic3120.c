@@ -543,20 +543,34 @@ void tlv320_clock_cfg(struct baudio_inst *inst)
 
 void tlv320_speaker_config(struct baudio_inst *inst)
 {
+    // selecting page 0 
     tlv320_write_byte_check(inst, 0x00, 0x00);
+
     tlv320_write_byte_check(inst, 0x74, 0x00);
     tlv320_write_byte_check(inst, 0x44, 0x00);
     tlv320_write_byte_check(inst, 0x41, 0X00);
+    // selecting page 1
     tlv320_write_byte_check(inst, 0x00, 0x01);
+    // Setting MICBIAS = 2.5v
+    tlv320_write_byte_check(inst, 0x2E, 0X0A);
+    // Selecting MIC1LP input is routed to left-channel mixer amplifier
     tlv320_write_byte_check(inst, 0x23, 0X40);
-    tlv320_write_byte_check(inst, 0x2a, 0X04);
-    tlv320_write_byte_check(inst, 0x20, 0xc6);
+    // Setting Analog voulume control ouput routed to D-class driver
     tlv320_write_byte_check(inst, 0x26, 0X80);
-    tlv320_write_byte_check(inst, 0x00, 0x08);
-    tlv320_write_byte_check(inst, 0x01, 0x04);
-    tlv320_write_byte_check(inst, 0x00, 0x00);
-    tlv320_write_byte_check(inst, 0x3F, 0xd6);
-    tlv320_write_byte_check(inst, 0x40, 0X00);
+    // Class D gain: 24dB, not muted and applied
+    tlv320_write_byte_check(inst, 0x2a, 0X1D);
+    // setting Class-D is powerred up. D6-D1 must be writed only reset value
+    tlv320_write_byte_check(inst, 0x20, 0x86);
+
+
+    
+    
+    // selecting page 8
+    // tlv320_write_byte_check(inst, 0x00, 0x08);
+    // tlv320_write_byte_check(inst, 0x01, 0x04);
+    // tlv320_write_byte_check(inst, 0x00, 0x00);
+    // tlv320_write_byte_check(inst, 0x3F, 0xd6);
+    // tlv320_write_byte_check(inst, 0x40, 0X00);
 }
 
 typedef struct {
