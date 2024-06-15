@@ -88,7 +88,7 @@
         "io_mux_reg.h": "c"
     },
     "idf.flashType": "UART",
-    "idf.portWin": "COM10",
+    "idf.portWin": "COM4",
     "C_Cpp.clang_format_style": "{BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: WebKit, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false, AlignConsecutiveMacros: true, SortIncludes: false}",
     "cSpell.words": [
         "pmod"

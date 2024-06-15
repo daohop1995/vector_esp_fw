@@ -508,12 +508,13 @@ void tlv320_clock_cfg(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x13, 0x86);
     // ADC AOSR_VAL : AOSR - 128
     tlv320_write_byte_check(inst, 0x14, 0x80);
+    // Set GPIO1 = CLKOUT1
+    tlv320_write_byte_check(inst, 0x33, 0x12);
     // Set ADC_CLK as CLK input for CDIV
     tlv320_write_byte_check(inst, 0x19, 0x07);
     // Set M factor for CDIVE
     tlv320_write_byte_check(inst, 0x1A, 0x80);
-    // Set GPIO1 = CLKOUT1
-    tlv320_write_byte_check(inst, 0x33, 0x12);
+    
     // ----------------------------------------------------------------------------
     // I2S configurations : Copy from the excel
     // ----------------------------------------------------------------------------
@@ -547,16 +548,23 @@ void tlv320_speaker_config(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x74, 0x00);
     tlv320_write_byte_check(inst, 0x44, 0x00);
     tlv320_write_byte_check(inst, 0x41, 0X00);
+
+    // Selecting page 1
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    tlv320_write_byte_check(inst, 0x23, 0X40);
-    tlv320_write_byte_check(inst, 0x2a, 0X04);
-    tlv320_write_byte_check(inst, 0x20, 0xc6);
+    // Selecting MIC1LP is path to mixer amp
+    tlv320_write_byte_check(inst, 0x23, 0X20);
+    // Class-D gain = 24dB
+    tlv320_write_byte_check(inst, 0x2a, 0X1D);
+    // Class-D power-up
+    tlv320_write_byte_check(inst, 0x20, 0x86);
+    // Attenuation of analog volume = 0
     tlv320_write_byte_check(inst, 0x26, 0X80);
-    tlv320_write_byte_check(inst, 0x00, 0x08);
-    tlv320_write_byte_check(inst, 0x01, 0x04);
-    tlv320_write_byte_check(inst, 0x00, 0x00);
-    tlv320_write_byte_check(inst, 0x3F, 0xd6);
-    tlv320_write_byte_check(inst, 0x40, 0X00);
+
+    // tlv320_write_byte_check(inst, 0x00, 0x08);
+    // tlv320_write_byte_check(inst, 0x01, 0x04);
+    // tlv320_write_byte_check(inst, 0x00, 0x00);
+    // tlv320_write_byte_check(inst, 0x3F, 0xd6);
+    // tlv320_write_byte_check(inst, 0x40, 0X00);
 }
 
 typedef struct {
