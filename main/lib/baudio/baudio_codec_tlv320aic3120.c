@@ -549,10 +549,33 @@ void tlv320_speaker_config(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x44, 0x00);
     tlv320_write_byte_check(inst, 0x41, 0X00);
 
+    //Configure beep sound
+    //DAC is muted. 
+    tlv320_write_byte_check(inst, 0x40, 0x0C);
+    //NDAC is powerred down. 
+    tlv320_write_byte_check(inst, 0x0B, 0x04);
+    //PRB_P25 is selected. 
+    tlv320_write_byte_check(inst, 0x3C, 0x19);
+
+    tlv320_write_byte_check(inst, 0x47, 0x80); //Beep generator is enable
+    tlv320_write_byte_check(inst, 0x48, 0x00);
+    tlv320_write_byte_check(inst, 0x49, 0x00);
+    tlv320_write_byte_check(inst, 0x4A, 0x7D);
+    tlv320_write_byte_check(inst, 0x4B, 0x00);
+    tlv320_write_byte_check(inst, 0x4C, 0x5A);
+    tlv320_write_byte_check(inst, 0x4D, 0x82);
+    tlv320_write_byte_check(inst, 0x4E, 0x5A);
+    tlv320_write_byte_check(inst, 0x4F, 0x82);
+
+    tlv320_write_byte_check(inst, 0x0B, 0x84);
+    tlv320_write_byte_check(inst, 0x40, 0x00);
+
     // Selecting page 1
     tlv320_write_byte_check(inst, 0x00, 0x01);
+    // Selecting MICBIAS AVDD
+    tlv320_write_byte_check(inst, 0x2E, 0X0B);
     // Selecting MIC1LP is path to mixer amp
-    tlv320_write_byte_check(inst, 0x23, 0X20);
+    tlv320_write_byte_check(inst, 0x23, 0X40);
     // Class-D gain = 24dB
     tlv320_write_byte_check(inst, 0x2a, 0X1D);
     // Class-D power-up
@@ -565,6 +588,8 @@ void tlv320_speaker_config(struct baudio_inst *inst)
     // tlv320_write_byte_check(inst, 0x00, 0x00);
     // tlv320_write_byte_check(inst, 0x3F, 0xd6);
     // tlv320_write_byte_check(inst, 0x40, 0X00);
+
+
 }
 
 typedef struct {
