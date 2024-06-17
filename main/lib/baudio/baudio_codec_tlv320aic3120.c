@@ -549,6 +549,32 @@ void tlv320_speaker_config(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x44, 0x00);
     tlv320_write_byte_check(inst, 0x41, 0X00);
 
+    //Configure ADC
+    // ADC RB_R4
+    tlv320_write_byte_check(inst, 0x3D, 0x04);
+    // Power up ADC
+    tlv320_write_byte_check(inst, 0x51, 0x80);
+    // Set ADC is not muted
+    tlv320_write_byte_check(inst, 0x52, 0x80);
+
+    // Set BDIV_CLKIN = 512KHz
+    tlv320_write_byte_check(inst, 0x1E, 0x84);
+
+    //Configure DAC
+    // DAC PRB_P16
+    tlv320_write_byte_check(inst, 0x3C, 0x10);
+    // Power up DAC
+    tlv320_write_byte_check(inst, 0x3F, 0x86);
+    // Set DAC is not muted
+    tlv320_write_byte_check(inst, 0x40, 0x04);
+    // Set DAC Volume Control Gain = 24dB
+    tlv320_write_byte_check(inst, 0x41, 0x30);
+
+    // Set ADC-DAC loop, BDIV_CLKIN = ADC_MOD_CLK
+    tlv320_write_byte_check(inst, 0x1D, 0x17);
+
+    
+    /*
     //Configure beep sound
     //DAC is muted. 
     tlv320_write_byte_check(inst, 0x40, 0x0C);
@@ -569,25 +595,34 @@ void tlv320_speaker_config(struct baudio_inst *inst)
 
     tlv320_write_byte_check(inst, 0x0B, 0x84);
     tlv320_write_byte_check(inst, 0x40, 0x00);
+    */
 
     // Selecting page 1
     tlv320_write_byte_check(inst, 0x00, 0x01);
     // Selecting MICBIAS AVDD
-    tlv320_write_byte_check(inst, 0x2E, 0X0B);
-    // Selecting MIC1LP is path to mixer amp
-    tlv320_write_byte_check(inst, 0x23, 0X40);
+    tlv320_write_byte_check(inst, 0x2E, 0x0B);
+    // Selecting DAC is path to mixer amp
+    tlv320_write_byte_check(inst, 0x23, 0x40);
+    // Selecting MIC1LP  for MIC PGA
+    tlv320_write_byte_check(inst, 0x30, 0x40);
+    // Selecting gain PGA MIC
+    tlv320_write_byte_check(inst, 0x2F, 0xC0);
+    // Selecting terminal for MIC: CM, RIN = 10K
+    tlv320_write_byte_check(inst, 0x31, 0x40);
+
+
     // Class-D gain = 24dB
-    tlv320_write_byte_check(inst, 0x2a, 0X1D);
+    tlv320_write_byte_check(inst, 0x2a, 0x1D);
     // Class-D power-up
     tlv320_write_byte_check(inst, 0x20, 0x86);
     // Attenuation of analog volume = 0
-    tlv320_write_byte_check(inst, 0x26, 0X80);
+    tlv320_write_byte_check(inst, 0x26, 0x80);
 
-    // tlv320_write_byte_check(inst, 0x00, 0x08);
-    // tlv320_write_byte_check(inst, 0x01, 0x04);
-    // tlv320_write_byte_check(inst, 0x00, 0x00);
-    // tlv320_write_byte_check(inst, 0x3F, 0xd6);
-    // tlv320_write_byte_check(inst, 0x40, 0X00);
+    tlv320_write_byte_check(inst, 0x00, 0x08);
+    tlv320_write_byte_check(inst, 0x01, 0x04);
+    tlv320_write_byte_check(inst, 0x00, 0x00);
+    tlv320_write_byte_check(inst, 0x3F, 0xd6);
+    tlv320_write_byte_check(inst, 0x40, 0X00);
 
 
 }
