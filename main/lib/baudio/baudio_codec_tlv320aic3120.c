@@ -547,85 +547,87 @@ void tlv320_speaker_config(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x00, 0x00);
     tlv320_write_byte_check(inst, 0x74, 0x00); //Volume controll by ADC
     tlv320_write_byte_check(inst, 0x44, 0x00); //
-    tlv320_write_byte_check(inst, 0x41, 0X30); // DAC Volume control = 24dB
+    tlv320_write_byte_check(inst, 0x41, 0X00); // DAC Volume control = 0dB
 
-    //Configure ADC
-    // ADC PRB_R4
-    tlv320_write_byte_check(inst, 0x3D, 0x04);
-    // Power up ADC
-    tlv320_write_byte_check(inst, 0x51, 0x80);
-    // Set ADC is not muted
-    tlv320_write_byte_check(inst, 0x52, 0x80);
+    //Loop back ADC-DAC
+    {
+    tlv320_write_byte_check(inst, 0x00, 0x00);
+    tlv320_write_byte_check(inst, 0x1d, 0x1d);
+    tlv320_write_byte_check(inst, 0x3c, 0x04);
+    tlv320_write_byte_check(inst, 0x3d, 0x04);
 
-    // Set BDIV_CLKIN = 512KHz
-    tlv320_write_byte_check(inst, 0x1E, 0x84);
-
-    //Configure DAC
-    // DAC PRB_P16
-    tlv320_write_byte_check(inst, 0x3C, 0x10);
-    // Power up DAC
-    tlv320_write_byte_check(inst, 0x3F, 0x86);
-    // Set DAC is not muted
-    tlv320_write_byte_check(inst, 0x40, 0x04);
-    // Set DAC Volume Control Gain = 24dB
-    tlv320_write_byte_check(inst, 0x41, 0x30);
-
-    // Set ADC-DAC loop, BDIV_CLKIN = ADC_MOD_CLK
-    tlv320_write_byte_check(inst, 0x1D, 0x17);
-
-    
-    /*
-
-    //Configure beep sound
-    //DAC is muted. 
-    tlv320_write_byte_check(inst, 0x40, 0x0C);
-    //NDAC is powerred down. 
-    tlv320_write_byte_check(inst, 0x0B, 0x07);
-    //PRB_P25 is selected. 
-    tlv320_write_byte_check(inst, 0x3C, 0x19);
-
-    tlv320_write_byte_check(inst, 0x47, 0x80); //Beep generator is enable
-    tlv320_write_byte_check(inst, 0x48, 0x00);
-    tlv320_write_byte_check(inst, 0x49, 0x00);
-    tlv320_write_byte_check(inst, 0x4A, 0x7D);
-    tlv320_write_byte_check(inst, 0x4B, 0x00);
-    tlv320_write_byte_check(inst, 0x4C, 0x5A);
-    tlv320_write_byte_check(inst, 0x4D, 0x82);
-    tlv320_write_byte_check(inst, 0x4E, 0x5A);
-    tlv320_write_byte_check(inst, 0x4F, 0x82);
-
-    tlv320_write_byte_check(inst, 0x0B, 0x87);
-    tlv320_write_byte_check(inst, 0x40, 0x00);
-<<<<<<< HEAD
-    // 
-    */
-
-    // Selecting page 1
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    // Selecting MICBIAS AVDD
-    tlv320_write_byte_check(inst, 0x2E, 0x0B);
-    // Selecting DAC is path to mixer amp
+    tlv320_write_byte_check(inst, 0x21, 0x4E);
+    tlv320_write_byte_check(inst, 0x1F, 0x84);
+
     tlv320_write_byte_check(inst, 0x23, 0x40);
-    // Selecting MIC1LP  for MIC PGA
+    tlv320_write_byte_check(inst, 0x28, 0x0e);
+    tlv320_write_byte_check(inst, 0x24, 0x00);
+    tlv320_write_byte_check(inst, 0x2e, 0x0a);
     tlv320_write_byte_check(inst, 0x30, 0x40);
-    // Selecting gain PGA MIC
-    tlv320_write_byte_check(inst, 0x2F, 0xC0);
-    // Selecting terminal for MIC: CM, RIN = 10K
-    tlv320_write_byte_check(inst, 0x31, 0x40);
-
-
-    // Class-D gain = 24dB
-    tlv320_write_byte_check(inst, 0x2a, 0x1D);
-    // Class-D power-up
-    tlv320_write_byte_check(inst, 0x20, 0x86);
-    // Attenuation of analog volume = 0
-    tlv320_write_byte_check(inst, 0x26, 0x80);
+    tlv320_write_byte_check(inst, 0x31, 0x10);
 
     tlv320_write_byte_check(inst, 0x00, 0x08);
     tlv320_write_byte_check(inst, 0x01, 0x04);
+
+    tlv320_write_byte_check(inst, 0x00, 0x01);
+    tlv320_write_byte_check(inst, 0x26, 0x8C);
+    tlv320_write_byte_check(inst, 0x2a, 0x1D);
+    tlv320_write_byte_check(inst, 0x20, 0x86);
+
     tlv320_write_byte_check(inst, 0x00, 0x00);
-    tlv320_write_byte_check(inst, 0x3F, 0xd6);
-    tlv320_write_byte_check(inst, 0x40, 0X00);
+    tlv320_write_byte_check(inst, 0x3f, 0x96);
+    tlv320_write_byte_check(inst, 0x40, 0x04);
+    tlv320_write_byte_check(inst, 0x51, 0x80);
+    tlv320_write_byte_check(inst, 0x52, 0x00);
+    }
+    
+   //Loop back MIC-SPEAKER
+    /*{
+    // // Selecting page 0
+    // tlv320_write_byte_check(inst, 0x00, 0x00);
+    // //Power-up Class-D , power down HPOUT
+    // tlv320_write_byte_check(inst, 0x25, 0x10);
+
+    //Configure MIC
+    // Selecting page 1
+    tlv320_write_byte_check(inst, 0x00, 0x01);
+    // Not select for MIC PGA
+    tlv320_write_byte_check(inst, 0x30, 0x00);
+    tlv320_write_byte_check(inst, 0x31, 0x00);
+    tlv320_write_byte_check(inst, 0x33, 0x00);
+    // Selecting MICBIAS 2.5V
+    tlv320_write_byte_check(inst, 0x2E, 0x0A);
+    // Selecting MIC1LP is path to mixer amp
+    tlv320_write_byte_check(inst, 0x23, 0x20);
+    // Selecting MIC1LP  for MIC PGA
+    tlv320_write_byte_check(inst, 0x30, 0x44);
+
+    //Power-down HPOUT
+    tlv320_write_byte_check(inst, 0x1F, 0x04);
+    //Anaglog volume is not rout to HPOUT
+    tlv320_write_byte_check(inst, 0x24, 0x7F);
+    //HPOUT DRIVER is muted
+    tlv320_write_byte_check(inst, 0x28, 0x02);
+
+    //Analog volume is routed to to class D -50dB
+    tlv320_write_byte_check(inst, 0x26, 0x8F);
+    //CLASS-D DRIVER is on, gain = 6dB
+    tlv320_write_byte_check(inst, 0x2A, 0x1C);
+    //Power-up CLASS-D
+    tlv320_write_byte_check(inst, 0x20, 0x86);
+    
+    // Selecting gain PGA MIC
+    // tlv320_write_byte_check(inst, 0x2F, 0xC0);
+    // Selecting terminal for MIC: CM, RIN = 10K
+    // tlv320_write_byte_check(inst, 0x31, 0x40);
+    }*/
+
+    // tlv320_write_byte_check(inst, 0x00, 0x08);
+    // tlv320_write_byte_check(inst, 0x01, 0x04);
+    // tlv320_write_byte_check(inst, 0x00, 0x00);
+    // tlv320_write_byte_check(inst, 0x3F, 0xd6);
+    // tlv320_write_byte_check(inst, 0x40, 0X00);
 
 
 }
