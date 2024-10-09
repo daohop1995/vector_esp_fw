@@ -50,7 +50,7 @@ struct baudio_inst *baudio = &baudio_tlv320;
 void audio_config()
 {
     tlv320_clock_cfg(baudio);
-    tlv320_speaker_config(baudio);
+    //tlv320_speaker_config(baudio);
 }
 /* Task to be created. */
 void daq_task_function(void *pvParameters)
