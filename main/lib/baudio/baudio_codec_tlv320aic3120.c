@@ -500,29 +500,30 @@ void tlv320_clock_cfg(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 0x00, 0x00);
     tlv320_write_byte_check(inst, 27, 0x0D);
     tlv320_write_byte_check(inst, 28, 0x00);
-    tlv320_write_byte_check(inst, 29, 0x24);
+    tlv320_write_byte_check(inst, 29, 0x00); 
     tlv320_write_byte_check(inst, 30, 0x84);
     tlv320_write_byte_check(inst, 33, 0x00);
     vTaskDelay(20);
 
-    tlv320_write_byte_check(inst, 0x00, 0x00);
-    tlv320_write_byte_check(inst, 63, 0xB5);
-    tlv320_write_byte_check(inst, 64, 0x04);
-    tlv320_write_byte_check(inst, 65, 0x01);
+    
+    tlv320_write_byte_check(inst, 0x00, 0x00);//Select page 0
+    tlv320_write_byte_check(inst, 63, 0x17); //DAC is power-down, DAC path = off, 
+    tlv320_write_byte_check(inst, 64, 0x0a); //DAC is  muted
+    tlv320_write_byte_check(inst, 65, 0x30); // DAC digital gain = 24dB
     vTaskDelay(20);
 
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    tlv320_write_byte_check(inst, 35, 0x40);
+    tlv320_write_byte_check(inst, 35, 0x20); //DAC is not routed to any where
     vTaskDelay(20);
 
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    tlv320_write_byte_check(inst, 36, 0x00);
-    tlv320_write_byte_check(inst, 38, 0x81);
+    tlv320_write_byte_check(inst, 36, 0x00); 
+    tlv320_write_byte_check(inst, 38, 0x80); // Analog Voulum control for speaker 0dB
     vTaskDelay(20);
 
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    tlv320_write_byte_check(inst, 32, 0x86);
-    tlv320_write_byte_check(inst, 42, 0x05);
+    tlv320_write_byte_check(inst, 32, 0x86); //Class D-Driver is powered up
+    tlv320_write_byte_check(inst, 42, 0x1D); //Class D-Driver gain = 24dB
     vTaskDelay(20);
 
     tlv320_write_byte_check(inst, 0x00, 0x00);
@@ -531,9 +532,9 @@ void tlv320_clock_cfg(struct baudio_inst *inst)
     tlv320_write_byte_check(inst, 83, 0x00);
     
     tlv320_write_byte_check(inst, 0x00, 0x01);
-    tlv320_write_byte_check(inst, 46, 0x0B);
-    tlv320_write_byte_check(inst, 48, 0x40);
-    tlv320_write_byte_check(inst, 49, 0x10);
+    tlv320_write_byte_check(inst, 46, 0x0A); //MICBIAS = 2.5V
+    tlv320_write_byte_check(inst, 48, 0x40); //only MICLP is selected for MIC PGA RIN 10k, positive
+    tlv320_write_byte_check(inst, 49, 0x10); //MICLM is selected for MIC PGA RIN 10K, negative
 
 }
 
